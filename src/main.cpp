@@ -73,7 +73,6 @@ int main(int argc, char **argv)
 
     glClearColor(1, 1, 0, 1);
 
-    
 
     {
         ResourceManager resourceManager(argv[0]);
@@ -84,6 +83,8 @@ int main(int argc, char **argv)
             std::cerr << "Can't create shader program: " << "DefaultShader" << std::endl;
             return -1;
         }
+
+        resourceManager.loadTexture("DefaultTexture", "res/textures/map_16x16.png");
 
       
 
