@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26 FATAL_ERROR)
+﻿cmake_minimum_required(VERSION 3.26 FATAL_ERROR)
 
 set(PROJECT_NAME BattleCity)
 project(${PROJECT_NAME})
@@ -22,11 +22,16 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 
-add_subdirectory(external/glfw)
+add_subdirectory(external/glfw) #loaded to cmake
 target_link_libraries(${PROJECT_NAME} glfw)
 
-add_subdirectory(external/glad)
+add_subdirectory(external/glad) #loaded to cmake
 target_link_libraries(${PROJECT_NAME} glad)
+
+add_subdirectory(external/glm) #loaded to cmake
+target_link_libraries(${PROJECT_NAME} glm)
+
+
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 

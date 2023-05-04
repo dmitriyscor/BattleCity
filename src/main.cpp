@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <external/glm/vec2.hpp>
 
 #include <iostream>
 
@@ -25,27 +26,14 @@ GLfloat texCoord[] = {
     0.0f, 0.0f, 
 };
 
-int g_windowSizeX = 640;
-int g_windowSizeY = 480;
+glm::vec2 g_windowSize(640, 480);
 
-void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
-{
-    g_windowSizeX = width;
-    g_windowSizeY = height;
-    glViewport(0, 0, g_windowSizeX, g_windowSizeY);
-}
-
-void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mode)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(pWindow, GL_TRUE);
-    }
-}
+void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height);
+void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mode);
 
 int main(int argc, char **argv)
 {
-    /* Initialize the library */
+    /* Initialization */
 
     if (!glfwInit())
     {
@@ -58,7 +46,7 @@ int main(int argc, char **argv)
 
     /* Create a windowed mode window and its OpenGL context */
 
-    GLFWwindow* pWindow = glfwCreateWindow(g_windowSizeX, g_windowSizeY, "Battle City", nullptr, nullptr);
+    GLFWwindow* pWindow = glfwCreateWindow(g_windowSize.x, g_windowSize.y, "Battle City", nullptr, nullptr);
     if (!pWindow)
     {
         std::cout << "glfwCreateWindow failed!" << std::endl;
@@ -68,7 +56,7 @@ int main(int argc, char **argv)
     glfwSetWindowSizeCallback(pWindow, glfwWindowSizeCallback);
     glfwSetKeyCallback(pWindow, glfwKeyCallback);
 
-    /* Make the window's context current */
+
 
     glfwMakeContextCurrent(pWindow);
     if (!gladLoadGL())
@@ -78,7 +66,7 @@ int main(int argc, char **argv)
     std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
-    glClearColor(1, 1, 0, 1);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 
     {
@@ -129,7 +117,7 @@ int main(int argc, char **argv)
         pDefaultShaderProgram->use();
         pDefaultShaderProgram->setInt("tex", 0);
 
-        /* Loop until the user closes the window */
+        /* Loop until the user closes the window (UPDATE) */
         while (!glfwWindowShouldClose(pWindow))
         {
             /* Render here */
@@ -147,7 +135,22 @@ int main(int argc, char **argv)
         }
     }
 
-    glfwTerminate();
+    glfwTerminate(); //delete
 
     return 0;
+}
+
+void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mode)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        glfwSetWindowShouldClose(pWindow, GL_TRUE);
+    }
+}
+
+void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
+{
+    g_windowSize.x = width;
+    g_windowSize.y = height;
+    glViewport(0, 0, width, height);
 }
