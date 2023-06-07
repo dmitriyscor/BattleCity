@@ -8,11 +8,13 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/Renderer/ShaderProgram.cpp
     src/Renderer/ShaderProgram.h
+    src/Renderer/Texture2D.cpp
+    src/Renderer/Texture2D.h
+    src/Renderer/Sprite.cpp
+    src/Renderer/Sprite.h
     src/Resources/ResourceManager.cpp
     src/Resources/ResourceManager.h
     src/Resources/stb_image.h
-    src/Renderer/Texture2D.cpp
-    src/Renderer/Texture2D.h
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
